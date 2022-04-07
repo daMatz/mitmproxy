@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import datetime 
 
 from mitmproxy import hooks
 
@@ -7,7 +8,8 @@ class LogEntry:
     def __init__(self, msg, level):
         # it's important that we serialize to string here already so that we don't pick up changes
         # happening after this log statement.
-        self.msg = str(msg)
+        self.time = datetime.datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
+        self.msg = self.time + ": " + str(msg)
         self.level = level
 
     def __eq__(self, other):
